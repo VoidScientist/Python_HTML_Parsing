@@ -19,3 +19,4 @@ In charge of keeping tracks of the process, along with distributing task and man
 ### Théo VOREAUX ():
 
 ### Rémi PICHOT ():
+- 
