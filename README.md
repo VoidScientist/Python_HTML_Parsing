@@ -1,1 +1,21 @@
-# Python_HTML_Parsing
+# HTML Parser:
+
+This is a group project for ESME's algorithm course.
+
+## What the program should achieve:
+
+1.	Analysing input HTML code, identifying tags, attributes and their structure.
+2.	Reporting structural errors such as incorrectly closed tags, missing tags, etc.
+3.	Providing a clear and understandable error report, indicating the exact locations of errors in the source code.
+
+## Roles:
+
+### Louis ARCELON (Helmsman):
+
+In charge of keeping tracks of the process, along with distributing task and managing the repo.
+
+### Raphaël KERVAON ():
+
+### Théo VOREAUX ():
+
+### Rémi PICHOT ():
