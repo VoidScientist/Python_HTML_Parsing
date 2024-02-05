@@ -1,0 +1,1 @@
+To check open / closed tag -> use stack
