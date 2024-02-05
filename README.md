@@ -15,6 +15,7 @@ This is a group project for ESME's algorithm course.
 In charge of keeping tracks of the process, along with distributing task and managing the repo.
 
 ### Raphaël KERVAON ():
+- I DON'T UNDERSTAND;
 
 ### Théo VOREAUX ():
 
