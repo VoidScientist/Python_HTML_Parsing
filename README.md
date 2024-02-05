@@ -12,12 +12,13 @@ This is a group project for ESME's algorithm course.
 
 ### Louis ARCELON (Helmsman):
 
-In charge of keeping tracks of the process, along with distributing task and managing the repo.
+- In charge of keeping tracks of the process, along with distributing task and managing the repo.
 
 ### Raphaël KERVAON ():
 
 ### Théo VOREAUX ():
 
 ### Rémi PICHOT (Spokesperson):
+
 - Explain everything at the end
 
