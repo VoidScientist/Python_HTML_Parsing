@@ -18,8 +18,8 @@ This is a group project for ESME's algorithm course.
 - I DON'T UNDERSTAND;
 
 ### Théo VOREAUX ():
+- Test case analysis (Wikipédia)
 
 ### Rémi PICHOT (Spokesperson):
 
 - Explain everything at the end
-
