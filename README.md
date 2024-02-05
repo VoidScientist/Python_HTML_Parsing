@@ -19,6 +19,6 @@ In charge of keeping tracks of the process, along with distributing task and man
 
 ### Théo VOREAUX ():
 
-### Rémi PICHOT ():
+### Rémi PICHOT (Spokesperson):
 - Explain everything at the end
 
