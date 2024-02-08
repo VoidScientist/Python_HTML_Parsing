@@ -1,4 +1,4 @@
-token_list = ("Greater", "Inferior", "Identifier", "Equal", "Quote", "Slash", "Dash", "Excla")
+token_list = ("Greater", "Inferior", "Identifier", "Equal", "Quote", "Slash", "Dash", "Excla", "NewLine")
 
 class Token:
     def __init__(self, nat, lexeme):
@@ -27,6 +27,9 @@ def tokenizer(f):
             
         if a == ">":
             tokens.append(Token("Greater", ">"))
+            
+        if a == "\n":
+            tokens.append(Token("NewLine", "\\n"))
             
         if a == "=":
             tokens.append(Token("Equal", "="))
