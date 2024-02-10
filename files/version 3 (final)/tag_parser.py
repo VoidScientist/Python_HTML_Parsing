@@ -1,6 +1,6 @@
 from tag_list import tags
 
-ALLOW_CUSTOM = True
+ALLOW_CUSTOM = False
 
 def check_tag(identifier: str) -> tuple[bool, bool]:
     """
