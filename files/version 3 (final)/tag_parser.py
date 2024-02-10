@@ -1,25 +1,6 @@
 from tag_list import tags
 
-# ----------------------------------------------------
-# This is a basic HTML parser that is supposed to detect errors.
-# It was made as homework for the advanced algo course at ESME Sudria.
-#
-# GROUP MEMBERS: Louis ARCELON, Rémi PICHOT, Raphaël KERVAON, Théo VOREAUX.
-#
-# Disclaimer : this algorithm is quite rudimentary, poorly optimised, and might let errors slip
-# especially those that are related to the javascript parser incorporated in HTML.
-#
-# Disclaimer 2: i found out by testing on the google main page again structural errors
-# might be detected for custom html elements, this could be avoided by simply not caring
-# about tag names, so here's the super-parameter:
-#
 ALLOW_CUSTOM = True
-#
-# But it passes the google page with lots of obfuscated JS so i'm happy at least.
-#
-# Data Structures used : stack - queue
-# Modus Operandi : Finite State Machine
-# ----------------------------------------------------
 
 def check_tag(identifier: str) -> tuple[bool, bool]:
     """

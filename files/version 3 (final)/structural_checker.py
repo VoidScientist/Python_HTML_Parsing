@@ -10,9 +10,10 @@ def check_html_structure(tags: list) -> tuple[list, list]:
 
     for tag in tags:
 
+        # if tag invalid or empty throw 
         if not tag["valid"] or tag["tag"] == "":
             str_tag = f"<{'/' * (tag['nature'] == 'CLOSE') + tag['tag']}>"
-            errors.append(f"Invalid tag {str_tag} at line {tag['start']}")
+            errors.append(f"UnknownTagError at line {tag['start']}: Invalid tag {str_tag}.")
 
         elif tag["nature"] == "CLOSE" and tag["self_closing"]:
             hints.append(f"Self-closing tag <{tag['tag']}> closed (uselessly) at line {tag['start']}")
@@ -22,7 +23,7 @@ def check_html_structure(tags: list) -> tuple[list, list]:
             stack.append(tag)
 
         elif tag["nature"] == "CLOSE" and not stack:
-            errors.append(f"Tag </{tag['tag']}> never opened at line {tag['start']}")
+            errors.append(f"MismatchedTagError at line {tag['start']}: Tag </{tag['tag']}> never opened.")
 
         elif not stack:
             continue
@@ -32,9 +33,9 @@ def check_html_structure(tags: list) -> tuple[list, list]:
 
         elif tag["nature"] == "CLOSE" and stack[-1]["tag"] != tag["tag"]:
             str_tag = f"<{'/' * (tag['nature'] == 'CLOSE') + tag['tag']}>"
-            errors.append(f"Awaiting </{stack[-1]['tag']}> got {str_tag} at line {tag['start']}")
+            errors.append(f"MismatchedTagError at line {tag['start']}: Awaiting </{stack[-1]['tag']}> got {str_tag} instead.")
 
-    errors += [f"Unclosed tag <{'/' * (tag['nature'] == 'CLOSE') + tag['tag']}> at line {tag['start']}" for tag in
-               stack]
+    errors += [f"MismatchedTagError at line {tag['start']}: Unclosed tag <{'/' * (tag['nature'] == 'CLOSE') + tag['tag']}>." 
+    for tag in stack]
 
     return errors, hints
