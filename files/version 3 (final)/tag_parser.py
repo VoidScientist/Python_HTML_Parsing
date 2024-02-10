@@ -57,7 +57,7 @@ def pattern_matching(tag: str) -> list[str]:
         case ["<", *content, ">"]:
             return ["OPEN", "".join(content)]
         case _:
-            return ["ERROR", f"Tag {tag} can't be at ."]
+            return ["ERROR", f"TagStructureError: Tag {tag} can't be matched."]
 
 
 def parse(f) -> tuple[list[dict], list[str]]:
@@ -106,14 +106,14 @@ def parse(f) -> tuple[list[dict], list[str]]:
                     current_mode = "TAG"
 
                 if char == ">":
-                    errors.append(f"Tag was never opened at line {line} character {char_on_line}")
+                    errors.append(f"MissingTokenError at line {line} character {char_on_line}: Tag was never opened.")
 
             case "TAG":
 
                 tag += char
 
                 if char == "<":
-                    errors.append(f"Tag opened inside another at line {line} character {char_on_line}")
+                    errors.append(f"NestedTagError at line {line} character {char_on_line}: Tag opened inside another.")
 
                 if char == ">":
                     current_mode = "DEFAULT"
