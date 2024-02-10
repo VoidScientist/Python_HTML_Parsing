@@ -10,7 +10,7 @@ def check_html_structure(tags: list) -> tuple[list, list]:
 
     for tag in tags:
 
-        if not tag["valid"]:
+        if not tag["valid"] or tag["tag"] == "":
             str_tag = f"<{'/' * (tag['nature'] == 'CLOSE') + tag['tag']}>"
             errors.append(f"Invalid tag {str_tag} at line {tag['start']}")
 

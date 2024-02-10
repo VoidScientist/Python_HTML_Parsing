@@ -12,6 +12,6 @@ with open("htmlparsing.txt", "r") as f:
     print("STRUCTURAL ERRORS:")
     print(*err, sep="\n", end="\n\n")
     
-    input("Press Enter To Continue:")
+    input("Press Enter To Continue...")
 
 # welp, that was fun.
