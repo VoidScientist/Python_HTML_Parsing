@@ -23,7 +23,7 @@ from structural_checker import check_html_structure
 # Modus Operandi : Finite State Machine
 # ----------------------------------------------------
 
-with open("htmlparsing.txt", "r") as f:
+with open("htmlparsing.txt", "r", encoding="utf-8") as f:
     data, err_tag = parse(f)
     err, hints = check_html_structure(data)
 

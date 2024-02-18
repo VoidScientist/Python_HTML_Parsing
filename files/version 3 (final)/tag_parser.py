@@ -29,12 +29,14 @@ def parse_content(tag: str) -> tuple[str, str, list[str], bool, bool]:
     if nature == "ERROR": return nature, None, None, False, False
     if nature == "COMMENT": return nature, None, None, True, True
 
-    identifier, *attributes = data.split(" ")
+    identifier, *attributes = data.replace("\t", " ").split(" ")
 
     if identifier.lower() == "!doctype" and list(map(lambda x: x.lower(), attributes)) == ["html"]:
         return "OPEN", "doctype", "html", True, True
 
     validity, type = check_tag(identifier)
+
+    if nature == "SELF-CLOSING": return "OPEN", identifier, attributes, validity, True
 
     return nature, identifier, attributes, validity, type
 
@@ -46,18 +48,20 @@ def pattern_matching(tag: str) -> list[str]:
     :param tag:
     :return A list of form [NATURE, CONTENT] both strings:
 
-    NATURE TYPES : OPEN - CLOSE - COMMENT
+    NATURE TYPES : OPEN - CLOSE - COMMENT - SELF-CLOSING
     """
     match list(tag):
 
         case ["<", "/", *content, ">"]:
             return ["CLOSE", "".join(content)]
+        case ["<", *content, "/", ">"]:
+            return ["SELF-CLOSING", "".join(content)]
         case ["<", "!", "-", "-", *content, "-", "-", ">"]:
             return ["COMMENT", "".join(content)]
         case ["<", *content, ">"]:
             return ["OPEN", "".join(content)]
         case _:
-            return ["ERROR", f"TagStructureError: Tag {tag} can't be matched."]
+            return ["ERROR", f"Tag {tag} can't be at ."]
 
 
 def parse(f) -> tuple[list[dict], list[str]]:
@@ -75,7 +79,7 @@ def parse(f) -> tuple[list[dict], list[str]]:
     risky = ["script", "style"]
     escape_tag = ""
 
-    parse_modes = ["TAG", "SCRIPT", "DEFAULT"]
+    parse_modes = ["TAG", "SCRIPT", "DEFAULT", "COMMENT"]
     current_mode = "DEFAULT"
 
     errors = []
@@ -106,14 +110,30 @@ def parse(f) -> tuple[list[dict], list[str]]:
                     current_mode = "TAG"
 
                 if char == ">":
-                    errors.append(f"MissingTokenError at line {line} character {char_on_line}: Tag was never opened.")
+                    errors.append(f"Tag was never opened at line {line} character {char_on_line}")
+
+            case "COMMENT":
+
+                tag += char
+
+                if tag[-3:] == "-->":
+                    current_mode = "DEFAULT"
+
+                    tag_data = [i for i in parse_content(tag)] + [line_start, line]
+                    tag_dict = dict(zip(tag_attributes, tag_data))
+                    tags.append(tag_dict)
+
+                    tag = ""
 
             case "TAG":
 
                 tag += char
 
+                if tag == "<!--":
+                    current_mode = "COMMENT"
+
                 if char == "<":
-                    errors.append(f"NestedTagError at line {line} character {char_on_line}: Tag opened inside another.")
+                    errors.append(f"Tag opened inside another at line {line} character {char_on_line}")
 
                 if char == ">":
                     current_mode = "DEFAULT"
